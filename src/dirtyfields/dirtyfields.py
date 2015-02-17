@@ -13,23 +13,11 @@ class DirtyFieldsMixin(object):
         reset_state(sender=self.__class__, instance=self)
 
     def _as_dict(self):
-        all_field = {}
-
-        for field in self._meta.local_fields:
-            if not field.rel:
-                all_field[field.name] = getattr(self, field.name)
-
-        return all_field
+        return { field.attname: getattr(self, field.attname) for field in self._meta.fields }
 
     def get_dirty_fields(self):
         new_state = self._as_dict()
-        all_modify_field = {}
-
-        for key, value in self._original_state.iteritems():
-            if value != new_state[key]:
-                all_modify_field[key] = value
-
-        return all_modify_field
+        return { k: self._original_state[k] for k in self._original_state if self._original_state[k] != new_state[k] }
 
     def is_dirty(self):
         # in order to be dirty we need to have been saved at least once, so we
