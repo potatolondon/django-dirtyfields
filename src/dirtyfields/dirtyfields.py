@@ -13,7 +13,7 @@ class DirtyFieldsMixin(object):
         reset_state(sender=self.__class__, instance=self)
 
     def _as_dict(self):
-        return { field.attname: getattr(self, field.attname) for field in self._meta.fields }
+        return { field.attname: getattr(self, field.attname) for field in self._meta.local_fields }
 
     def get_dirty_fields(self):
         new_state = self._as_dict()
