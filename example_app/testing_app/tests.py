@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from example_app.testing_app.models import TestModel
+from testing_app.models import TestModel
 
 
 class DirtyFieldsMixinTestCase(TestCase):

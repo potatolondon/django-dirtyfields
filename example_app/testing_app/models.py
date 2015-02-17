@@ -6,3 +6,6 @@ class TestModel(DirtyFieldsMixin, models.Model):
     """A simple test model to test dirty fields mixin with"""
     boolean = models.BooleanField(default=True)
     characters = models.CharField(blank=True, max_length=80)
+
+    class Meta:
+        app_label = "testing_app"
